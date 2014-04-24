@@ -34,7 +34,7 @@ for (arg in cli$args) {
         rmd.file <- arg
     }
     message("Knitting ", rmd.file)
-    md.file <- knit(rmd.file)
+    md.file <- knit(rmd.file, envir=new.env())
     message("Rendering ", md.file)
     markdownToHTML(file=md.file, out=gsub("\\.md$", ".html", md.file))
 }
