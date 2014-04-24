@@ -12,7 +12,9 @@ option.spec = list(
                 help="run output through spin"),
     make_option(c("-n", "--no-eval"),
                 dest="eval", action="store_false", default=TRUE,
-                help="do not evaluate R code")
+                help="do not evaluate R code"),
+    make_option(c("-d", "--root-directory"), dest="root.dir",
+                metavar="DIR", help="use DIR as root directory")
 )
 
 cli = parse_args(OptionParser(option_list=option.spec, prog="Rnit"),
@@ -24,6 +26,9 @@ if (opts$verbose) {
 }
 if (!opts$eval) {
     opts_chunk$set(eval=FALSE)
+}
+if (!is.null(opts$root.dir)) {
+    opts_knit$set(root.dir=opts$root.dir)
 }
 
 for (arg in cli$args) {
